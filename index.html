@@ -3,10 +3,12 @@
   <head>
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", () => {
+        const d = document.getElementsByTagName('div')[0];
         const r = (c) => {
-          document.getElementsByTagName('div')[0].innerHTML += ["/", "\\"][Math.round(Math.random())];
+          d.innerHTML += ["/", "\\"][Math.round(Math.random())];
           if(c++ < 4000)
             setTimeout(r.bind(null, c),5);
+            d.scrollTop = d.scrollHeight;
         };
         r(0);
       });
@@ -15,7 +17,6 @@
       html, body {
         color: #6C5EB5;
         background-color: #6C5EB5;
-        height: 100%;
         margin: 0px;
         padding: 0px;
         word-wrap: break-word;
@@ -27,17 +28,22 @@
       }
 
       div {
-        width: 945px;
-        min-height: 100%;
+        width: calc(100vw - 120px);
+        height: calc(100vh - 120px);
+        overflow-y: scroll;
         margin-left: auto;
         margin-right: auto;
         margin-top: 40px;
-        padding: 20px;
+        padding: 20px 0px 20px 20px;
         background-color: #352879;
         font: normal 30pt/30px "C64 User", verdana, helvetica, sans-serif;
         letter-spacing: -5px;
       }
 
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
     </style>
   </head>
   <body>
