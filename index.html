@@ -3,9 +3,24 @@
   <head>
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", () => {
+        const audioCtx = new window.AudioContext();
+
+        const oscillator = audioCtx.createOscillator();
+
+        oscillator.type = 'square';
+        oscillator.frequency.value = 35; // value in hertz
+        oscillator.connect(audioCtx.destination);
+        oscillator.start();
+
         const d = document.getElementsByTagName('div')[0];
         const r = (c) => {
-          d.innerHTML += ["/", "\\"][Math.round(Math.random())];
+          const next = ["/", "\\"][Math.round(Math.random())];
+          d.innerHTML += next;
+          if (next === '/') {
+            oscillator.frequency.value += 5;
+          } else {
+            oscillator.frequency.value -= 5;
+          }
           if(c++ < 4000)
             setTimeout(r.bind(null, c),5);
             d.scrollTop = d.scrollHeight;
